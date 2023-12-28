@@ -1,0 +1,144 @@
+<div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+    <app-title [title]="'List of teachers'"></app-title>
+    <!-- Start coding here -->
+    <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+        <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div class="w-full md:w-1/2">
+                <form class="flex items-center">
+                    <label for="searchbyfirstlastname" class="sr-only">Search</label>
+                    <div class="relative w-full">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="text" id="searchbyfirstlastname"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Search by first or last name" (input)="onSearch($event)">
+                    </div>
+                </form>
+            </div>
+            <div
+                class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                <button type="button" (click)="navigateToAddPage()"
+                    class="cursor-pointer flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                    Add product
+                </button>
+            </div>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-4 py-3">
+                            <div class="flex items-center justify-center">
+                                <span>First Name</span>
+                                <span>
+                                    <svg (click)="onSortByDirection('firstName', 'ASC')"
+                                        class="w-3 h-3 ms-1.5 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 16 10">
+                                        <path
+                                            d="M9.207 1A2 2 0 0 0 6.38 1L.793 6.586A2 2 0 0 0 2.207 10H13.38a2 2 0 0 0 1.414-3.414L9.207 1Z" />
+                                    </svg>
+                                    <svg (click)="onSortByDirection('firstName', 'DESC')"
+                                        class="w-3 h-3 ms-1.5 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 16 10">
+                                        <path
+                                            d="M15.434 1.235A2 2 0 0 0 13.586 0H2.414A2 2 0 0 0 1 3.414L6.586 9a2 2 0 0 0 2.828 0L15 3.414a2 2 0 0 0 .434-2.179Z" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-4 py-3">
+                            <div class="flex items-center justify-center cursor-pointer">
+                                <span>Last Name</span>
+                                <span>
+                                    <svg (click)="onSortByDirection('lastName', 'ASC')"
+                                        class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 16 10">
+                                        <path
+                                            d="M9.207 1A2 2 0 0 0 6.38 1L.793 6.586A2 2 0 0 0 2.207 10H13.38a2 2 0 0 0 1.414-3.414L9.207 1Z" />
+                                    </svg>
+                                    <svg (click)="onSortByDirection('lastName', 'DESC')"
+                                        class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 16 10">
+                                        <path
+                                            d="M15.434 1.235A2 2 0 0 0 13.586 0H2.414A2 2 0 0 0 1 3.414L6.586 9a2 2 0 0 0 2.828 0L15 3.414a2 2 0 0 0 .434-2.179Z" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </th>
+                        <th scope="col" class="px-4 py-3">Email</th>
+                        <th scope="col" class="px-4 py-3">Gender</th>
+                        <th scope="col" class="px-4 py-3">Lessons</th>
+                        <th scope="col" class="px-4 py-3">
+                            <span class="sr-only">Actions</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (teacher of (teachers$ | async); track teacher.email) {
+                    <tr class="border-b dark:border-gray-700">
+                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{teacher.firstName}}</th>
+                        <td class="px-4 py-3">{{teacher.lastName}}</td>
+                        <td class="px-4 py-3">{{teacher.email}}</td>
+                        <td class="px-4 py-3">{{teacher.gender}}</td>
+                        <td class="px-4 py-3">{{teacher.teacherLesson.name}}</td>
+                        <td class="px-4 py-3 flex items-center justify-end">
+                            <button (click)="editTeacher(teacher)"
+                                class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+                                type="button">
+                                <svg class="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                                    <path
+                                        d="M6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-1.391 7.361.707-3.535a3 3 0 0 1 .82-1.533L7.929 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h4.259a2.975 2.975 0 0 1-.15-1.639ZM8.05 17.95a1 1 0 0 1-.981-1.2l.708-3.536a1 1 0 0 1 .274-.511l6.363-6.364a3.007 3.007 0 0 1 4.243 0 3.007 3.007 0 0 1 0 4.243l-6.365 6.363a1 1 0 0 1-.511.274l-3.536.708a1.07 1.07 0 0 1-.195.023Z" />
+                                </svg>
+                            </button>
+                            <button (click)="handleOnDelete(teacher)"
+                                class="inline-flex items-center p-0.5 text-sm font-medium text-center text-red-700 hover:text-text-800 rounded-lg focus:outline-none"
+                                type="button">
+                                <svg class="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                                    <path
+                                        d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                    } @empty {
+                    <div class="text-center m-4">
+                        Empty list of teachers
+                    </div>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+            aria-label="Table navigation">
+            <div>
+                <select
+                    class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    [(ngModel)]="selectPageSize" (change)="onChangeSizePage($event)">
+                    <option [value]="4">4</option>
+                    <option [value]="6">6</option>
+                    <option [value]="10">10</option>
+                </select>
+            </div>
+            <ul class="inline-flex items-stretch -space-x-px">
+                @for(page of (pages$ | async); track page; let idx = $index) {
+                <li>
+                    <span
+                        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
+                        [ngClass]="{'text-primary-600 z-10 bg-primary-50 hover:bg-primary-100 hover:text-primary-700 dark:bg-gray-700 dark:text-white': selectedPage === idx}"
+                        (click)="handleClickPage(idx, $event)">{{idx + 1}}</span>
+                </li>
+
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<section class="bg-white dark:bg-gray-900">
+    <div class="mx-auto max-w-2xl">
+        <form [formGroup]='teacherForm' (ngSubmit)="onCreate()">
+            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                <div class="w-full">
+                    <label for="firstName" [ngClass]="{'text-red-700 dark:text-red-500': hasErrorFirstName}"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                        Name</label>
+                    <input type="text" formControlName='firstName' id="firstName"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        [ngClass]="{'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500': hasErrorFirstName}"
+                        required>
+                    <p *ngIf="hasErrorFirstName" class="mt-2 text-sm text-red-600 dark:text-red-500">First Name is
+                        required</p>
+                </div>
+                <div class="w-full">
+                    <label for="lastName" [ngClass]="{'text-red-700 dark:text-red-500': hasErrorLastName}"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                    <input type="text" formControlName='lastName' id="lastName"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        [ngClass]="{'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500': hasErrorLastName}"
+                        required>
+                    <p *ngIf="hasErrorLastName" class="mt-2 text-sm text-red-600 dark:text-red-500">Last Name is
+                        required</p>
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="email" [ngClass]="{'text-red-700 dark:text-red-500': hasErrorEmail}"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                    <input type="email" formControlName='email' id="email"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        [ngClass]="{'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500': hasErrorEmail}"
+                        required>
+                    <p *ngIf="hasErrorEmail" class="mt-2 text-sm text-red-600 dark:text-red-500">Email is required
+                    </p>
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        [ngClass]="{'text-red-700 dark:text-red-500': hasErrorGender}">Gender</label>
+                    <select id="gender" formControlName='gender'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        [ngClass]="{'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 dark:bg-gray-700 focus:border-red-500': hasErrorGender}">
+                        <option selected="">Select gender</option>
+                        <option [value]="gender.FEMALE">{{gender.FEMALE}}</option>
+                        <option [value]="gender.MALE">{{gender.MALE}}</option>
+                    </select>
+                    <p *ngIf="hasErrorGender" class="mt-2 text-sm text-red-600 dark:text-red-500">Gender is required</p>
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="teacherLesson"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lesson</label>
+                    <input type="text" formControlName='teacherLesson' id="teacherLesson"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                </div>
+            </div>
+            <button type="submit"
+                class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                {{isAddPage ? 'Add' : 'Edit' }} Teacher
+            </button>
+            <button type="button"
+                (click)="handleOnCancel()"
+                class="ml-2 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancel</button>
+        </form>
+    </div>
+</section>

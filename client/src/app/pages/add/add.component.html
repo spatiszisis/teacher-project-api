@@ -1,0 +1,9 @@
+<app-title [title]="'Add a new teacher'"></app-title>
+<app-teacher-form
+    [subscription]="saveTeacherSubscription"
+    [isAddPage]="true" 
+    (onSubmit)="handleOnSubmit($event)"
+    (onCancel)="handleCancel()"
+></app-teacher-form>
+
+<div *ngIf="!!serverError" class="alert alert-danger mt-4" role="alert">{{serverError}}</div>

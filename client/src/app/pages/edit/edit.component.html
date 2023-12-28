@@ -1,0 +1,9 @@
+<app-title [title]="'Edit the teacher'"></app-title>
+<app-teacher-form
+    [teacher]="teacher"
+    [subscription]="editTeacherSubscription" 
+    (onSubmit)="handleOnSubmit($event)"
+    (onCancel)="handleCancel()"
+></app-teacher-form>
+
+<div *ngIf="!!serverError" class="alert alert-danger mt-4" role="alert">{{serverError}}</div>
