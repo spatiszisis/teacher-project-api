@@ -20,10 +20,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class TeacherService implements ITeacherDAO {
-    @Autowired
-    private ITeacherRepository teacherRepository;
-    @Autowired
-    private TeacherConverter teacherConverter;
+    private final ITeacherRepository teacherRepository;
+    private final TeacherConverter teacherConverter;
+
+    public TeacherService(ITeacherRepository teacherRepository, TeacherConverter teacherConverter) {
+        this.teacherRepository = teacherRepository;
+        this.teacherConverter = teacherConverter;
+    }
 
     @Override
     public TeacherDTO insertTeacher(TeacherDTO teacherDTO) throws TeacherIdAlreadyExistsException, RuntimeException {

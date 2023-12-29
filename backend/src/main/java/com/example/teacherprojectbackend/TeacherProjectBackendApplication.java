@@ -21,6 +21,14 @@ public class TeacherProjectBackendApplication {
 
 	@Bean
 	CommandLineRunner runner(ITeacherRepository teacherRepository) {
+		Teacher teacher = new Teacher();
+		teacher.setFirstName("test");
+		teacher.setLastName("test");
+		teacher.setGender(Gender.MALE);
+		teacher.setEmail("zisis@gmail.com");
+		teacher.setCreateTime(LocalDateTime.now());
+		teacherRepository.save(teacher);
+
 		return args -> {
 			for (int i = 0; i < 5; i++) {
 				var faker = new Faker();
@@ -32,7 +40,7 @@ public class TeacherProjectBackendApplication {
 				Lesson mathimatika = new Lesson();
 				mathimatika.setName("MATHIMATIKA");
 
-				Teacher teacher = new Teacher(
+				Teacher teacher2 = new Teacher(
 						firstName,
 						lastName,
 						email,
@@ -40,7 +48,7 @@ public class TeacherProjectBackendApplication {
 						Gender.MALE,
 						LocalDateTime.now()
 				);
-				teacherRepository.save(teacher);
+				teacherRepository.save(teacher2);
 			}
 		};
 	}
